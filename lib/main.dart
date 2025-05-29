@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rest_todo/main_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'presentation/screens/main_screen.dart';
 
 void main() {
-  runApp(ProviderScope(child: ToDoApp()));
+  runApp(const ProviderScope(child: ToDoApp()));
 }
 
 class ToDoApp extends StatelessWidget {
@@ -11,6 +11,10 @@ class ToDoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'ToDo App', home: MainScreen());
+    return MaterialApp(
+      title: 'ToDo App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const MainScreen(),
+    );
   }
 }
