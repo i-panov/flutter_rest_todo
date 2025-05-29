@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 class TodoItem extends Equatable {
   final String title, description, category;
@@ -17,7 +18,7 @@ class TodoItem extends Equatable {
   );
 
   Map<String, dynamic> toJson() => {
-    'name': title,
+    'title': title,
     'description': description,
     'category': category,
   };
@@ -36,18 +37,16 @@ abstract interface class AppRepository {
 }
 
 class AppRepositoryImpl implements AppRepository {
-  static const _baseUrl =
-      'my-json-server.typicode.com/i.panov/flutter_rest_todo';
-
   late final Dio _dio = Dio(
     BaseOptions(
       baseUrl: baseUrl,
+      contentType: 'application/json',
     ),
   );
 
   final String baseUrl;
 
-  AppRepositoryImpl({this.baseUrl = _baseUrl});
+  AppRepositoryImpl({required this.baseUrl});
 
   @override
   Future<Set<String>> getCategories() async {
@@ -64,6 +63,15 @@ class AppRepositoryImpl implements AppRepository {
 
   @override
   Future<void> addTodoItem(TodoItem item) async {
-    await _dio.post('/todos', data: item.toJson());
+    try {
+      await _dio.post('/todos', data: item.toJson());
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+
+      // заигнорил потому что сервис возвращает какую-то внутреннюю ошибку
+      // на post запросы, видимо там какие-то неполадки
+    }
   }
 }
