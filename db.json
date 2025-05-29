@@ -1,0 +1,20 @@
+{
+    "categories": ["Category 1", "Category 2", "Category 3"],
+    "todos": [
+        {
+            "title": "Todo 1",
+            "description": "Todo 1 description",
+            "category": "Category 1"
+        },
+        {
+            "title": "Todo 2",
+            "description": "Todo 2 description",
+            "category": "Category 2"
+        },
+        {
+            "title": "Todo 3",
+            "description": "Todo 3 description",
+            "category": "Category 3"
+        }
+    ]
+}
